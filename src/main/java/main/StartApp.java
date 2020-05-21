@@ -87,7 +87,8 @@ public class StartApp {
     			compilationUnitToFilePath.put(compilationUnits.get(i), srcFiles.get(i));
     		}
     	}
-    	
+    	//try to open git directory. will throw error when not possible
+    	Git git = Git.open(new File(gitDirectory));
     }    
     public static void reset() {
     	srcDir = null;
@@ -287,6 +288,8 @@ public class StartApp {
 	    										init(formDataGitDirectory);
 	    										return new RsWithStatus(200);
 	    									} catch(Throwable t) {
+												System.err.println(t.getMessage());
+                                                t.printStackTrace();
 	    										return new RsWithStatus(500);
 	    									}
 	    									}))),
@@ -302,6 +305,8 @@ public class StartApp {
 	    										moveMethods(fromClassfqn, toClassfqn, methodName);
 												return new RsWithStatus(200);
 											} catch (Throwable e) {
+												System.err.println(e.getMessage());
+                                                e.printStackTrace();
 												return new RsWithStatus(500);
 											}}))),
 	    				new FkRegex("/refactor/merge_classes", 
@@ -315,6 +320,8 @@ public class StartApp {
 	    										mergeClasses(fromClassfqn, toClassfqn);
 												return new RsWithStatus(200);
 											} catch (Throwable e) {
+												System.err.println(e.getMessage());
+                                                e.printStackTrace();
 												return new RsWithStatus(500);
 											}}))),
 	    				new FkRegex("/refactor/split_classes", 
@@ -329,6 +336,8 @@ public class StartApp {
 	    										splitClasses(classfqn, selectedMethods);
 												return new RsWithStatus(200);
 											} catch (Throwable e) {
+												System.err.println(e.getMessage());
+                                                e.printStackTrace();
 												return new RsWithStatus(500);
 											}}))),
 	    				new FkRegex("/refactor/reset", 

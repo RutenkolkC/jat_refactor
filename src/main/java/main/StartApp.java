@@ -70,7 +70,10 @@ public class StartApp {
     }
     public static void init(String gitDirectory) throws Throwable {
     	compilationUnitToFilePath = new Hashtable<Tr.CompilationUnit, Path>();
-    	
+    	System.out.println("Trying to read git directory:");
+    	System.out.println(gitDirectory);
+    	System.out.println("Absolute Path:");
+    	System.out.println(Paths.get(gitDirectory).toAbsolutePath());
     	StartApp.gitDirectory = gitDirectory;
     	try(Stream<Path> ifstr = Files.walk(Paths.get(gitDirectory), Integer.MAX_VALUE)) {
     		ifstr.filter(p->p.endsWith("src/main/java")).findFirst().ifPresent(p->{srcDir = p;});

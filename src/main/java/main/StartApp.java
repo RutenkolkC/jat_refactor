@@ -137,7 +137,8 @@ public class StartApp {
     	}
     }
     public static String relativFilePath(CompilationUnit cu) {
-    	return compilationUnitToFilePath.get(cu).toAbsolutePath().toString().substring(gitDirectory.length());
+    	String relativePath = compilationUnitToFilePath.get(cu).toAbsolutePath().toString().substring(gitDirectory.length()+1);
+    	return relativePath;
     }
     public static void barf(CompilationUnit dest,String content) throws FileNotFoundException {
     	try (PrintWriter out = new PrintWriter(new FileOutputStream(compilationUnitToFilePath.get(dest).toFile(),false))) {
